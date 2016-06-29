@@ -10,6 +10,10 @@
 		02B29D631D24640700E2D02C /* racAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 02B29D621D24640700E2D02C /* racAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		02B29D6A1D24640700E2D02C /* racAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D5F1D24640700E2D02C /* racAdditions.framework */; };
 		02B29D6F1D24640700E2D02C /* racAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B29D6E1D24640700E2D02C /* racAdditionsTests.swift */; };
+		02B29D7A1D24641B00E2D02C /* racAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B29D791D24641B00E2D02C /* racAdditions.swift */; };
+		02B29D7C1D24643500E2D02C /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 02B29D7B1D24643500E2D02C /* Cartfile */; };
+		02B29D811D24649500E2D02C /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D801D24649500E2D02C /* Result.framework */; };
+		02B29D831D2464B300E2D02C /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +33,10 @@
 		02B29D691D24640700E2D02C /* racAdditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = racAdditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B29D6E1D24640700E2D02C /* racAdditionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = racAdditionsTests.swift; sourceTree = "<group>"; };
 		02B29D701D24640700E2D02C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02B29D791D24641B00E2D02C /* racAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = racAdditions.swift; sourceTree = "<group>"; };
+		02B29D7B1D24643500E2D02C /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		02B29D801D24649500E2D02C /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +44,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B29D831D2464B300E2D02C /* ReactiveCocoa.framework in Frameworks */,
+				02B29D811D24649500E2D02C /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +63,9 @@
 		02B29D551D24640700E2D02C = {
 			isa = PBXGroup;
 			children = (
+				02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */,
+				02B29D801D24649500E2D02C /* Result.framework */,
+				02B29D7B1D24643500E2D02C /* Cartfile */,
 				02B29D611D24640700E2D02C /* racAdditions */,
 				02B29D6D1D24640700E2D02C /* racAdditionsTests */,
 				02B29D601D24640700E2D02C /* Products */,
@@ -72,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				02B29D621D24640700E2D02C /* racAdditions.h */,
+				02B29D791D24641B00E2D02C /* racAdditions.swift */,
 				02B29D641D24640700E2D02C /* Info.plist */,
 			);
 			path = racAdditions;
@@ -177,6 +191,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B29D7C1D24643500E2D02C /* Cartfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B29D7A1D24641B00E2D02C /* racAdditions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,26 +326,37 @@
 		02B29D741D24640700E2D02C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = racAdditions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hollylabs.racAdditions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		02B29D751D24640700E2D02C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = racAdditions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
