@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0284A6871D41EA7200056E24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */; };
+		0284A6881D41EA7200056E24 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D801D24649500E2D02C /* Result.framework */; };
+		0284A6891D41EA9A00056E24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */; };
+		0284A68A1D41EA9A00056E24 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D801D24649500E2D02C /* Result.framework */; };
 		02B29D631D24640700E2D02C /* racAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 02B29D621D24640700E2D02C /* racAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		02B29D6A1D24640700E2D02C /* racAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D5F1D24640700E2D02C /* racAdditions.framework */; };
 		02B29D6F1D24640700E2D02C /* racAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B29D6E1D24640700E2D02C /* racAdditionsTests.swift */; };
 		02B29D7A1D24641B00E2D02C /* racAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B29D791D24641B00E2D02C /* racAdditions.swift */; };
 		02B29D7C1D24643500E2D02C /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 02B29D7B1D24643500E2D02C /* Cartfile */; };
-		02B29D811D24649500E2D02C /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D801D24649500E2D02C /* Result.framework */; };
-		02B29D831D2464B300E2D02C /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02B29D831D2464B300E2D02C /* ReactiveCocoa.framework in Frameworks */,
-				02B29D811D24649500E2D02C /* Result.framework in Frameworks */,
+				0284A6871D41EA7200056E24 /* ReactiveCocoa.framework in Frameworks */,
+				0284A6881D41EA7200056E24 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0284A6891D41EA9A00056E24 /* ReactiveCocoa.framework in Frameworks */,
+				0284A68A1D41EA9A00056E24 /* Result.framework in Frameworks */,
 				02B29D6A1D24640700E2D02C /* racAdditions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,6 +143,7 @@
 				02B29D651D24640700E2D02C /* Sources */,
 				02B29D661D24640700E2D02C /* Frameworks */,
 				02B29D671D24640700E2D02C /* Resources */,
+				0284A6851D41EA3300056E24 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -203,6 +208,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0284A6851D41EA3300056E24 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		02B29D5A1D24640700E2D02C /* Sources */ = {
@@ -371,6 +394,10 @@
 		02B29D771D24640700E2D02C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = racAdditionsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hollylabs.racAdditionsTests;
@@ -381,6 +408,10 @@
 		02B29D781D24640700E2D02C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = racAdditionsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hollylabs.racAdditionsTests;
