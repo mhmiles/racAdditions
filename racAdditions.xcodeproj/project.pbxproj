@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0284A6871D41EA7200056E24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */; };
 		0284A6881D41EA7200056E24 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D801D24649500E2D02C /* Result.framework */; };
-		0284A6891D41EA9A00056E24 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */; };
 		0284A68A1D41EA9A00056E24 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D801D24649500E2D02C /* Result.framework */; };
+		0287166B1D6D21970076FFBD /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0287166A1D6D21970076FFBD /* ReactiveSwift.framework */; };
 		02B29D631D24640700E2D02C /* racAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 02B29D621D24640700E2D02C /* racAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		02B29D6A1D24640700E2D02C /* racAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D5F1D24640700E2D02C /* racAdditions.framework */; };
 		02B29D6F1D24640700E2D02C /* racAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B29D6E1D24640700E2D02C /* racAdditionsTests.swift */; };
@@ -29,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0287166A1D6D21970076FFBD /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		02B29D5F1D24640700E2D02C /* racAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = racAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B29D621D24640700E2D02C /* racAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = racAdditions.h; sourceTree = "<group>"; };
 		02B29D641D24640700E2D02C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -38,7 +38,6 @@
 		02B29D791D24641B00E2D02C /* racAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = racAdditions.swift; sourceTree = "<group>"; };
 		02B29D7B1D24643500E2D02C /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		02B29D801D24649500E2D02C /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
-		02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0284A6871D41EA7200056E24 /* ReactiveCocoa.framework in Frameworks */,
+				0287166B1D6D21970076FFBD /* ReactiveSwift.framework in Frameworks */,
 				0284A6881D41EA7200056E24 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -55,7 +54,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0284A6891D41EA9A00056E24 /* ReactiveCocoa.framework in Frameworks */,
 				0284A68A1D41EA9A00056E24 /* Result.framework in Frameworks */,
 				02B29D6A1D24640700E2D02C /* racAdditions.framework in Frameworks */,
 			);
@@ -64,15 +62,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		028716691D6D21970076FFBD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02B29D801D24649500E2D02C /* Result.framework */,
+				0287166A1D6D21970076FFBD /* ReactiveSwift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		02B29D551D24640700E2D02C = {
 			isa = PBXGroup;
 			children = (
-				02B29D821D2464B300E2D02C /* ReactiveCocoa.framework */,
-				02B29D801D24649500E2D02C /* Result.framework */,
 				02B29D7B1D24643500E2D02C /* Cartfile */,
 				02B29D611D24640700E2D02C /* racAdditions */,
 				02B29D6D1D24640700E2D02C /* racAdditionsTests */,
 				02B29D601D24640700E2D02C /* Products */,
+				028716691D6D21970076FFBD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,14 +168,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Miles Hollingsworth";
 				TargetAttributes = {
 					02B29D5E1D24640700E2D02C = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					02B29D681D24640700E2D02C = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -270,8 +278,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -320,8 +330,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -341,6 +353,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -352,6 +365,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -367,6 +381,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -374,6 +389,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -388,6 +404,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hollylabs.racAdditions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -402,6 +419,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hollylabs.racAdditionsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -416,6 +434,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hollylabs.racAdditionsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
