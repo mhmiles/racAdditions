@@ -10,7 +10,7 @@
 #import "RACSignal.h"
 
 /// The domain for errors originating in RACSignal operations.
-extern NSString * _Nonnull const RACSignalErrorDomain;
+extern NSString * const RACSignalErrorDomain;
 
 /// The error code used with -timeout:.
 extern const NSInteger RACSignalErrorTimedOut;
@@ -29,15 +29,14 @@ extern const NSInteger RACSignalErrorNoMatchingCase;
 @protocol RACSubscriber;
 
 @interface RACSignal (Operations)
-NS_ASSUME_NONNULL_BEGIN
 
 /// Do the given block on `next`. This should be used to inject side effects into
 /// the signal.
-- (RACSignal *)doNext:(void (^)(id _Nullable x))block;
+- (RACSignal *)doNext:(void (^)(id x))block;
 
 /// Do the given block on `error`. This should be used to inject side effects
 /// into the signal.
-- (RACSignal *)doError:(void (^)(NSError * _Nonnull error))block;
+- (RACSignal *)doError:(void (^)(NSError *error))block;
 
 /// Do the given block on `completed`. This should be used to inject side effects
 /// into the signal.
@@ -80,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Returns a signal which sends `next` events, throttled when `predicate`
 /// returns YES. Completion and errors are always forwarded immediately.
-- (RACSignal *)throttle:(NSTimeInterval)interval valuesPassingTest:(BOOL (^)(id _Nullable next))predicate;
+- (RACSignal *)throttle:(NSTimeInterval)interval valuesPassingTest:(BOOL (^)(id next))predicate;
 
 /// Forwards `next` and `completed` events after delaying for `interval` seconds
 /// on the current scheduler (on which the events were delivered).
@@ -327,7 +326,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///            object is set to `nil`).
 ///
 /// Returns a disposable which can be used to terminate the binding.
-- (RACDisposable *)setKeyPath:(NSString *)keyPath onObject:(NSObject *)object nilValue:(nullable id)nilValue;
+- (RACDisposable *)setKeyPath:(NSString *)keyPath onObject:(NSObject *)object nilValue:(id)nilValue;
 
 /// Sends NSDate.date every `interval` seconds.
 ///
@@ -376,7 +375,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (RACSignal *)takeUntilReplacement:(RACSignal *)replacement;
 
 /// Subscribes to the returned signal when an error occurs.
-- (RACSignal *)catch:(RACSignal * (^)(NSError * _Nonnull error))catchBlock;
+- (RACSignal *)catch:(RACSignal * (^)(NSError *error))catchBlock;
 
 /// Subscribes to the given signal when an error occurs.
 - (RACSignal *)catchTo:(RACSignal *)signal;
@@ -414,7 +413,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Returns a signal which passes through all the values of the receiver. If
 /// `tryBlock` fails for any value, the returned signal will error using the
 /// `NSError` passed out from the block.
-- (RACSignal *)try:(BOOL (^)(id _Nullable value, NSError **errorPtr))tryBlock;
+- (RACSignal *)try:(BOOL (^)(id value, NSError **errorPtr))tryBlock;
 
 /// Runs `mapBlock` against each of the receiver's values, mapping values until
 /// `mapBlock` returns nil, or the receiver completes.
@@ -434,21 +433,21 @@ NS_ASSUME_NONNULL_BEGIN
 /// Returns a signal which transforms all the values of the receiver. If
 /// `mapBlock` returns nil for any value, the returned signal will error using
 /// the `NSError` passed out from the block.
-- (RACSignal *)tryMap:(id (^)(id _Nullable value, NSError **errorPtr))mapBlock;
+- (RACSignal *)tryMap:(id (^)(id value, NSError **errorPtr))mapBlock;
 
 /// Returns the first `next`. Note that this is a blocking call.
-- (nullable id)first;
+- (id)first;
 
 /// Returns the first `next` or `defaultValue` if the signal completes or errors
 /// without sending a `next`. Note that this is a blocking call.
-- (nullable id)firstOrDefault:(nullable id)defaultValue;
+- (id)firstOrDefault:(id)defaultValue;
 
 /// Returns the first `next` or `defaultValue` if the signal completes or errors
 /// without sending a `next`. If an error occurs success will be NO and error
 /// will be populated. Note that this is a blocking call.
 ///
 /// Both success and error may be NULL.
-- (nullable id)firstOrDefault:(nullable id)defaultValue success:(nullable BOOL *)success error:(NSError * _Nullable * _Nullable)error;
+- (id)firstOrDefault:(id)defaultValue success:(BOOL *)success error:(NSError **)error;
 
 /// Blocks the caller and waits for the signal to complete.
 ///
@@ -456,7 +455,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// Returns whether the signal completed successfully. If NO, `error` will be set
 /// to the error that occurred.
-- (BOOL)waitUntilCompleted:(NSError * _Nullable * _Nullable)error;
+- (BOOL)waitUntilCompleted:(NSError **)error;
 
 /// Defers creation of a signal until the signal's actually subscribed to.
 ///
@@ -490,7 +489,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// the signals in `cases` or `defaultSignal`, and sends `completed` when both
 /// `signal` and the last used signal complete. If no `defaultSignal` is given,
 /// an unmatched `next` will result in an error on the returned signal.
-+ (RACSignal *)switch:(RACSignal *)signal cases:(NSDictionary *)cases default:(nullable RACSignal *)defaultSignal;
++ (RACSignal *)switch:(RACSignal *)signal cases:(NSDictionary *)cases default:(RACSignal *)defaultSignal;
 
 /// Switches between `trueSignal` and `falseSignal` based on the latest value
 /// sent by `boolSignal`.
@@ -514,7 +513,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// that behavior instead.
 ///
 /// Returns the array of `next` values, or nil if an error occurs.
-- (nullable NSArray *)toArray;
+- (NSArray *)toArray;
 
 /// Adds every `next` to a sequence. Nils are represented by NSNulls.
 ///
@@ -606,10 +605,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// with the object. If `transformBlock` is nil, it sends the original object.
 ///
 /// The returned signal is a signal of RACGroupedSignal.
-- (RACSignal *)groupBy:(id<NSCopying> _Nullable (^)(id _Nullable object))keyBlock transform:(nullable id _Nullable (^)(id _Nullable object))transformBlock;
+- (RACSignal *)groupBy:(id<NSCopying> (^)(id object))keyBlock transform:(id (^)(id object))transformBlock;
 
 /// Calls -[RACSignal groupBy:keyBlock transform:nil].
-- (RACSignal *)groupBy:(id<NSCopying> _Nullable (^)(id _Nullable object))keyBlock;
+- (RACSignal *)groupBy:(id<NSCopying> (^)(id object))keyBlock;
 
 /// Sends an [NSNumber numberWithBool:YES] if the receiving signal sends any
 /// objects.
@@ -619,13 +618,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// objects that pass `predicateBlock`.
 ///
 /// predicateBlock - cannot be nil.
-- (RACSignal *)any:(BOOL (^)(id _Nullable object))predicateBlock;
+- (RACSignal *)any:(BOOL (^)(id object))predicateBlock;
 
 /// Sends an [NSNumber numberWithBool:YES] if all the objects the receiving 
 /// signal sends pass `predicateBlock`.
 ///
 /// predicateBlock - cannot be nil.
-- (RACSignal *)all:(BOOL (^)(id _Nullable object))predicateBlock;
+- (RACSignal *)all:(BOOL (^)(id object))predicateBlock;
 
 /// Resubscribes to the receiving signal if an error occurs, up until it has
 /// retried the given number of times.
@@ -704,11 +703,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// to the remaining elements.
 - (RACSignal *)reduceApply;
 
-NS_ASSUME_NONNULL_END
 @end
 
 @interface RACSignal (UnavailableOperations)
-NS_ASSUME_NONNULL_BEGIN
 
 - (RACSignal *)windowWithStart:(RACSignal *)openSignal close:(RACSignal * (^)(RACSignal *start))closeBlock __attribute__((unavailable("See https://github.com/ReactiveCocoa/ReactiveCocoa/issues/587")));
 - (RACSignal *)buffer:(NSUInteger)bufferCount __attribute__((unavailable("See https://github.com/ReactiveCocoa/ReactiveCocoa/issues/587")));
@@ -720,9 +717,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (RACDisposable *)toProperty:(NSString *)keyPath onObject:(NSObject *)object __attribute__((unavailable("Renamed to -setKeyPath:onObject:")));
 - (RACSignal *)ignoreElements __attribute__((unavailable("Renamed to -ignoreValues")));
 - (RACSignal *)sequenceNext:(RACSignal * (^)(void))block __attribute__((unavailable("Renamed to -then:")));
-- (RACSignal *)aggregateWithStart:(nullable id)start combine:(id _Nullable (^)(id _Nullable running, id _Nullable next))combineBlock __attribute__((unavailable("Renamed to -aggregateWithStart:reduce:")));
-- (RACSignal *)aggregateWithStartFactory:(id _Nullable (^)(void))startFactory combine:(id _Nullable (^)(id _Nullable running, id _Nullable next))combineBlock __attribute__((unavailable("Renamed to -aggregateWithStartFactory:reduce:")));
+- (RACSignal *)aggregateWithStart:(id)start combine:(id (^)(id running, id next))combineBlock __attribute__((unavailable("Renamed to -aggregateWithStart:reduce:")));
+- (RACSignal *)aggregateWithStartFactory:(id (^)(void))startFactory combine:(id (^)(id running, id next))combineBlock __attribute__((unavailable("Renamed to -aggregateWithStartFactory:reduce:")));
 - (RACDisposable *)executeCommand:(RACCommand *)command __attribute__((unavailable("Use -flattenMap: or -subscribeNext: instead")));
 
-NS_ASSUME_NONNULL_END
 @end

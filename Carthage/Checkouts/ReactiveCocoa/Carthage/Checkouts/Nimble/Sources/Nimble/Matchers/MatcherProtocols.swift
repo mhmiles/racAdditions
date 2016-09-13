@@ -3,35 +3,28 @@ import Foundation
 /// Implement this protocol to implement a custom matcher for Swift
 public protocol Matcher {
     associatedtype ValueType
-    func matches(_ actualExpression: Expression<ValueType>, failureMessage: FailureMessage) throws -> Bool
-    func doesNotMatch(_ actualExpression: Expression<ValueType>, failureMessage: FailureMessage) throws -> Bool
+    func matches(actualExpression: Expression<ValueType>, failureMessage: FailureMessage) throws -> Bool
+    func doesNotMatch(actualExpression: Expression<ValueType>, failureMessage: FailureMessage) throws -> Bool
 }
 
 #if _runtime(_ObjC)
 /// Objective-C interface to the Swift variant of Matcher.
 @objc public protocol NMBMatcher {
-    func matches(_ actualBlock: @escaping () -> NSObject!, failureMessage: FailureMessage, location: SourceLocation) -> Bool
-    func doesNotMatch(_ actualBlock: @escaping () -> NSObject!, failureMessage: FailureMessage, location: SourceLocation) -> Bool
+    func matches(actualBlock: () -> NSObject!, failureMessage: FailureMessage, location: SourceLocation) -> Bool
+    func doesNotMatch(actualBlock: () -> NSObject!, failureMessage: FailureMessage, location: SourceLocation) -> Bool
 }
 #endif
 
 #if _runtime(_ObjC)
 /// Protocol for types that support contain() matcher.
 @objc public protocol NMBContainer {
-    @objc(containsObject:)
-    func contains(_ anObject: Any) -> Bool
+    func containsObject(object: AnyObject!) -> Bool
 }
 
-// FIXME: NSHashTable can not conform to NMBContainer since swift-DEVELOPMENT-SNAPSHOT-2016-04-25-a
-//extension NSHashTable : NMBContainer {} // Corelibs Foundation does not include this class yet
+extension NSHashTable : NMBContainer {} // Corelibs Foundation does not include this class yet
 #else
 public protocol NMBContainer {
-    func contains(_ anObject: AnyObject) -> Bool
-}
-extension NMBContainer {
-    func contains(_ anObject: Any) -> Bool {
-        return contains(anObject as! AnyObject)
-    }
+    func containsObject(object: AnyObject) -> Bool
 }
 #endif
 
@@ -59,22 +52,22 @@ extension NSDictionary : NMBCollection {}
 #if _runtime(_ObjC)
 /// Protocol for types that support beginWith(), endWith(), beEmpty() matchers
 @objc public protocol NMBOrderedCollection : NMBCollection {
-    @objc(indexOfObject:)
-    func index(of anObject: Any) -> Int
+    func indexOfObject(object: AnyObject!) -> Int
 }
 #else
 public protocol NMBOrderedCollection : NMBCollection {
-    func index(of anObject: AnyObject) -> Int
-}
-extension NMBOrderedCollection {
-    func index(of anObject: Any) -> Int {
-        return index(of: anObject as! AnyObject)
-    }
+    func indexOfObject(object: AnyObject) -> Int
 }
 #endif
 
 extension NSArray : NMBOrderedCollection {}
 
+#if _runtime(_ObjC)
+/// Protocol for types to support beCloseTo() matcher
+@objc public protocol NMBDoubleConvertible {
+    var doubleValue: CDouble { get }
+}
+#else
 public protocol NMBDoubleConvertible {
     var doubleValue: CDouble { get }
 }
@@ -94,29 +87,32 @@ extension Float : NMBDoubleConvertible {
         }
     }
 }
+#endif
 
 extension NSNumber : NMBDoubleConvertible {
 }
 
-private let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
+private let dateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSS"
-    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
 
     return formatter
 }()
 
-extension Date: NMBDoubleConvertible {
+#if _runtime(_ObjC)
+extension NSDate: NMBDoubleConvertible {
     public var doubleValue: CDouble {
         get {
             return self.timeIntervalSinceReferenceDate
         }
     }
 }
+#endif
 
-extension Date: TestOutputStringConvertible {
+extension NSDate: TestOutputStringConvertible {
     public var testDescription: String {
-        return dateFormatter.string(from: self as Date)
+        return dateFormatter.stringFromDate(self)
     }
 }
 
@@ -126,22 +122,22 @@ extension Date: TestOutputStringConvertible {
 /// Types that conform to Swift's Comparable protocol will work implicitly too
 #if _runtime(_ObjC)
 @objc public protocol NMBComparable {
-    func NMB_compare(_ otherObject: NMBComparable!) -> ComparisonResult
+    func NMB_compare(otherObject: NMBComparable!) -> NSComparisonResult
 }
 #else
 // This should become obsolete once Corelibs Foundation adds Comparable conformance to NSNumber
 public protocol NMBComparable {
-    func NMB_compare(_ otherObject: NMBComparable!) -> ComparisonResult
+    func NMB_compare(otherObject: NMBComparable!) -> NSComparisonResult
 }
 #endif
 
 extension NSNumber : NMBComparable {
-    public func NMB_compare(_ otherObject: NMBComparable!) -> ComparisonResult {
+    public func NMB_compare(otherObject: NMBComparable!) -> NSComparisonResult {
         return compare(otherObject as! NSNumber)
     }
 }
 extension NSString : NMBComparable {
-    public func NMB_compare(_ otherObject: NMBComparable!) -> ComparisonResult {
+    public func NMB_compare(otherObject: NMBComparable!) -> NSComparisonResult {
         return compare(otherObject as! String)
     }
 }

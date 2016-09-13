@@ -7,20 +7,19 @@
 //
 
 import ReactiveCocoa
-import ReactiveSwift
 import Result
 
-internal enum TestError: Int {
-	case `default` = 0
-	case error1 = 1
-	case error2 = 2
+enum TestError: Int {
+	case Default = 0
+	case Error1 = 1
+	case Error2 = 2
 }
 
-extension TestError: Error {
+extension TestError: ErrorType {
 }
 
 
-internal extension SignalProducerProtocol {
+internal extension SignalProducerType {
 	/// Halts if an error is emitted in the receiver signal.
 	/// This is useful in tests to be able to just use `startWithNext`
 	/// in cases where we know that an error won't be emitted.
@@ -29,7 +28,7 @@ internal extension SignalProducerProtocol {
 	}
 }
 
-internal extension SignalProtocol {
+internal extension SignalType {
 	/// Halts if an error is emitted in the receiver signal.
 	/// This is useful in tests to be able to just use `startWithNext`
 	/// in cases where we know that an error won't be emitted.

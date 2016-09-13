@@ -1,5 +1,4 @@
 import Foundation
-import ReactiveSwift
 
 /// Wraps an Action for use by a GUI control (such as `NSControl` or
 /// `UIControl`), with KVO, or with Cocoa Bindings.
@@ -12,15 +11,15 @@ public final class CocoaAction: NSObject {
 	///
 	/// This property will only change on the main thread, and will generate a
 	/// KVO notification for every change.
-	public private(set) var isEnabled: Bool = false
+	public private(set) var enabled: Bool = false
 	
 	/// Whether the action is executing.
 	///
 	/// This property will only change on the main thread, and will generate a
 	/// KVO notification for every change.
-	public private(set) var isExecuting: Bool = false
+	public private(set) var executing: Bool = false
 	
-	private let _execute: (AnyObject?) -> Void
+	private let _execute: AnyObject? -> Void
 	private let disposable = CompositeDisposable()
 	
 	/// Initializes a Cocoa action that will invoke the given Action by
@@ -36,7 +35,7 @@ public final class CocoaAction: NSObject {
 	///                     action and returns a value (e.g. 
 	///                     `(UISwitch) -> (Bool)` to reflect whether a provided
 	///                     switch is currently on.
-	public init<Input, Output, Error>(_ action: Action<Input, Output, Error>, _ inputTransform: @escaping (AnyObject?) -> Input) {
+	public init<Input, Output, Error>(_ action: Action<Input, Output, Error>, _ inputTransform: AnyObject? -> Input) {
 		_execute = { input in
 			let producer = action.apply(inputTransform(input))
 			producer.start()
@@ -44,20 +43,20 @@ public final class CocoaAction: NSObject {
 		
 		super.init()
 		
-		disposable += action.isEnabled.producer
-			.observe(on: UIScheduler())
+		disposable += action.enabled.producer
+			.observeOn(UIScheduler())
 			.startWithNext { [weak self] value in
-				self?.willChangeValue(forKey: #keyPath(CocoaAction.isEnabled))
-				self?.isEnabled = value
-				self?.didChangeValue(forKey: #keyPath(CocoaAction.isEnabled))
+				self?.willChangeValueForKey("enabled")
+				self?.enabled = value
+				self?.didChangeValueForKey("enabled")
 		}
 		
-		disposable += action.isExecuting.producer
-			.observe(on: UIScheduler())
+		disposable += action.executing.producer
+			.observeOn(UIScheduler())
 			.startWithNext { [weak self] value in
-				self?.willChangeValue(forKey: #keyPath(CocoaAction.isExecuting))
-				self?.isExecuting = value
-				self?.didChangeValue(forKey: #keyPath(CocoaAction.isExecuting))
+				self?.willChangeValueForKey("executing")
+				self?.executing = value
+				self?.didChangeValueForKey("executing")
 		}
 	}
 	
@@ -80,11 +79,11 @@ public final class CocoaAction: NSObject {
 	///
 	/// - parameters:
 	///   - input: A value for the action passed during initialization.
-	@IBAction public func execute(_ input: AnyObject?) {
+	@IBAction public func execute(input: AnyObject?) {
 		_execute(input)
 	}
 	
-	public override class func automaticallyNotifiesObservers(forKey key: String) -> Bool {
+	public override class func automaticallyNotifiesObserversForKey(key: String) -> Bool {
 		return false
 	}
 }

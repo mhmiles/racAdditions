@@ -1,2 +1,2 @@
-github "antitypical/Result" "3.0.0-alpha.3"
-github "ReactiveCocoa/ReactiveCocoa" "6b308875b9ff476863f9726632b776acdab9f50a"
+github "antitypical/Result" "3.0.0"
+github "ReactiveCocoa/ReactiveSwift" "f4e3bdc31456a23cf79f70fe3e2ff78bd0ecbfeb"

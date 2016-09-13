@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 GitHub, Inc. All rights reserved.
 //
 
-#import <pthread/pthread.h>
 #import <Quick/Quick.h>
 #import <Nimble/Nimble.h>
 
@@ -21,7 +20,6 @@
 
 @interface TestObject : NSObject {
 	volatile int _testInt;
-	pthread_mutex_t _mutex;
 }
 
 @property (assign, atomic) int testInt;
@@ -30,29 +28,15 @@
 
 @implementation TestObject
 
-- (instancetype)init {
-	if ((self = [super init])) {
-		pthread_mutex_init(&_mutex, nil);
-	}
-
-	return self;
-}
-
 - (int)testInt {
-	int test = 0;
-	pthread_mutex_lock(&_mutex);
-	test = _testInt;
-	pthread_mutex_unlock(&_mutex);
-	return test;
+	return _testInt;
 }
 
 // Use manual KVO notifications to avoid any possible race conditions within the
 // automatic KVO implementation.
 - (void)setTestInt:(int)value {
 	[self willChangeValueForKey:@keypath(self.testInt)];
-	pthread_mutex_lock(&_mutex);
 	_testInt = value;
-	pthread_mutex_unlock(&_mutex);
 	[self didChangeValueForKey:@keypath(self.testInt)];
 }
 

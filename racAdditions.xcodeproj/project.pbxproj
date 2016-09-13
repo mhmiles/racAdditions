@@ -14,7 +14,6 @@
 		02B29D6A1D24640700E2D02C /* racAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B29D5F1D24640700E2D02C /* racAdditions.framework */; };
 		02B29D6F1D24640700E2D02C /* racAdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B29D6E1D24640700E2D02C /* racAdditionsTests.swift */; };
 		02B29D7A1D24641B00E2D02C /* racAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B29D791D24641B00E2D02C /* racAdditions.swift */; };
-		02B29D7C1D24643500E2D02C /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 02B29D7B1D24643500E2D02C /* Cartfile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,7 +203,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02B29D7C1D24643500E2D02C /* Cartfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
