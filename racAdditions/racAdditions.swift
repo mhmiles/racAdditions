@@ -29,7 +29,7 @@ func lazyMutableProperty<T>(_ host: AnyObject, key: UnsafeRawPointer, setter: @e
     return lazyAssociatedProperty(host, key: key) {
         let property = MutableProperty<T>(getter())
         
-        property.producer.startWithNext {
+        property.producer.startWithValues {
                 newValue in
                 setter(newValue)
         }
@@ -67,7 +67,7 @@ extension UITextField {
             self.addTarget(self, action: #selector(UITextField.changed), for: UIControlEvents.editingChanged)
             
             let property = MutableProperty<String>(self.text ?? "")
-            property.producer.startWithNext {
+            property.producer.startWithValues {
                     newValue in
                     self.text = newValue
             }
