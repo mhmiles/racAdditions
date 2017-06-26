@@ -76,7 +76,7 @@ extension UITextField {
         }
     }
     
-    func changed() {
+    @objc func changed() {
         rac_text.value = self.text!
     }
 }
